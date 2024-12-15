@@ -1,20 +1,26 @@
 const express = require("express");
+const connectDB = require("./config/database");
+const { authRouter } = require("./routes/auth");
+const { profileRouter } = require("./routes/profile");
+const { requestRouter } = require("./routes/request");
+const cookieParser = require("cookie-parser");
 
 const server = express();
 
-server.get("/", (req, res, next) => {
-  res.send("Hello from the server");
-  next();
-});
+server.use(express.json());
+server.use(cookieParser());
 
-server.get("/hello", (req, res) => {
-  res.send("Hello Hello Hello");
-});
+server.use("/", authRouter);
+server.use("/", profileRouter);
+server.use("/", requestRouter);
 
-server.get("/test", (req, res) => {
-  res.send("This is test");
-});
-
-server.listen(7777, () => {
-  console.log("Server started successfully");
-});
+connectDB()
+  .then(() => {
+    console.log("Database connection established");
+    server.listen(7777, () => {
+      console.log("Server started successfully");
+    });
+  })
+  .catch((err) => {
+    console.log("Database connection is not established");
+  });
