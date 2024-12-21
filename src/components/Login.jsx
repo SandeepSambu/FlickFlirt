@@ -8,8 +8,9 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("sandeep@gmail.com");
+  const [password, setPassword] = useState("Sandeep@123");
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
     try {
@@ -23,8 +24,9 @@ const Login = () => {
       );
 
       dispatch(addUser(res.data));
-      return navigate("/");
+      navigate("/");
     } catch (err) {
+      setError(err.response.data);
       console.error(err.response.data);
     }
   };
@@ -45,7 +47,10 @@ const Login = () => {
                 type="text"
                 value={email}
                 className="input input-bordered w-full max-w-xs"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError("");
+                }}
               />
             </label>
             <label className="form-control w-full max-w-xs my-3">
@@ -56,9 +61,15 @@ const Login = () => {
                 type="text"
                 value={password}
                 className="input input-bordered w-full max-w-xs"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError("");
+                }}
               />
             </label>
+          </div>
+          <div>
+            <h1 className="text-red-500 text-lg">{error}</h1>
           </div>
           <div
             className="card-actions justify-center mt-3"
