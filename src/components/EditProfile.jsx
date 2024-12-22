@@ -48,7 +48,7 @@ const EditProfile = ({ user }) => {
   return (
     <div className="flex justify-center gap-10">
       {edit && (
-        <div className="flex justify-center my-24">
+        <div className="flex justify-center mt-16 mb-24">
           <div className="card bg-base-300 w-96 shadow-xl">
             <div className="card-body">
               <h2 className="card-title font-bold text-2xl justify-center">
@@ -159,8 +159,8 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       )}
-      <div className="flex justify-center my-24">
-        <div className="card bg-base-300 w-96 shadow-xl pt-5">
+      <div className="flex justify-center mt-16 mb-24">
+        <div className="card bg-base-300 w-96 shadow-xl">
           <figure className="h-60">
             <img src={photoURL} alt="user-photo" />
           </figure>

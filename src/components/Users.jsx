@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 const Users = ({ user }) => {
   const { firstName, lastName, photoURL, age, gender, about, skills } = user;
   return (
-    <div className="flex justify-center mt-24 mb-5">
-      <div className="card bg-base-300 w-96 shadow-xl pt-5">
+    <div className="flex justify-center mt-16 mb-5">
+      <div className="card bg-base-300 w-80 shadow-xl">
         <figure>
-          <img src={photoURL} alt="Shoes" />
+          <img src={photoURL} alt="user-photo" className="h-60 w-full" />
         </figure>
         <div className="card-body ">
           <h2 className="card-title">{firstName + " " + lastName}</h2>
