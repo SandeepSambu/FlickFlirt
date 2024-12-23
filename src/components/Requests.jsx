@@ -70,7 +70,7 @@ const Requests = () => {
             return (
               <div
                 key={_id}
-                className="flex bg-base-300 shadow-xl w-6/12 h-52 rounded-xl"
+                className="flex bg-base-300 shadow-xl w-6/12 h-52 rounded-xl mb-5"
               >
                 <div className="w-4/12">
                   <figure className="">
@@ -81,14 +81,16 @@ const Requests = () => {
                     />
                   </figure>
                 </div>
-                <div className="items-start my-5 w-8/12 flex flex-col justify-between">
+                <div className="items-start my-5 w-9/12 flex flex-col justify-between">
                   <div className="">
                     <h1 className="font-bold text-2xl">
                       {firstName + " " + lastName}
                     </h1>
                     <h2>{age}</h2>
                     <h2>{gender}</h2>
-                    {about && <h2>{about}</h2>}
+                    <div className="w-[500px]">
+                      {about && <h2 className="truncate">{about}</h2>}
+                    </div>
                     {skills && <h2>{skills}</h2>}
                   </div>
                   <div className="mt-4 justify-between flex w-full">
