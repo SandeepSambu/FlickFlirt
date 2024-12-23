@@ -7,7 +7,17 @@ const bcrypt = require("bcrypt");
 authRouter.post("/signup", async (req, res) => {
   try {
     validation(req);
-    const { firstName, lastName, email, password, skills } = req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      skills,
+      age,
+      gender,
+      photoURL,
+      about,
+    } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -16,12 +26,19 @@ authRouter.post("/signup", async (req, res) => {
       lastName,
       email,
       password: hashedPassword,
+      photoURL,
+      age,
+      gender,
+      skills,
+      about,
     });
     if (skills?.length > 10) {
       throw new Error("Skills can not be more than 10");
     }
+    const token = await user.getJWT();
+    res.cookie("token", token);
     await user.save();
-    res.send("User added successfully");
+    res.send(user);
   } catch (err) {
     res.status(400).send("Error saving the user, " + err.message);
   }
@@ -45,7 +62,7 @@ authRouter.post("/login", async (req, res) => {
 
     const token = await user.getJWT();
     res.cookie("token", token);
-    res.send("Login Successful");
+    res.send(user);
   } catch (err) {
     res.status(400).send("Error : " + err.message);
   }

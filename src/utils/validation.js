@@ -17,6 +17,7 @@ const editValidation = (req) => {
     "firstName",
     "lastName",
     "age",
+    "gender",
     "about",
     "skills",
     "photoURL",
@@ -26,14 +27,16 @@ const editValidation = (req) => {
     allowedEditFields.includes(field)
   );
 
-  const { firstName, lastName, age, about, skills, photoURL } = req.body;
+  const { firstName, lastName, age, gender, about, skills, photoURL } =
+    req.body;
 
   if (
     firstName?.length < 1 ||
     lastName?.length < 1 ||
     age < 18 ||
-    about?.length < 50 ||
-    skills?.length > 10 ||
+    gender.length > 4 ||
+    (about && about?.length < 10) ||
+    (skills && skills?.length > 10) ||
     (photoURL && !validator.isURL(photoURL))
   ) {
     throw new Error("Invalid edit request");

@@ -90,7 +90,7 @@ requestRouter.post(
 
       await connectionRequest.findByIdAndDelete(requestId);
 
-      res.send("Request " + status + " successfully");
+      res.send(request);
     } catch (err) {
       res.status(400).send("Error : " + err.message);
     }

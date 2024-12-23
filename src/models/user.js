@@ -40,10 +40,11 @@ const userSchema = new mongoose.Schema(
     age: {
       type: Number,
       min: 18,
+      required: true,
     },
     about: {
       type: String,
-      maxLength: 50,
+      maxLength: 500,
     },
     gender: {
       type: String,
@@ -51,9 +52,10 @@ const userSchema = new mongoose.Schema(
         values: ["male", "female", "others"],
         message: "{VALUE} is not a valid gender",
       },
+      required: true,
     },
     skills: {
-      type: [String],
+      type: String,
       lowercase: true,
     },
     photoURL: {

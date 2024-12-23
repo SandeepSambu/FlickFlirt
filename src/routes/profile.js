@@ -19,7 +19,7 @@ profileRouter.patch("/profile/edit", auth, async (req, res) => {
     const isEditAllowed = editValidation(req);
 
     if (!isEditAllowed) {
-      throw new Error("Invalid edit request.");
+      throw new Error("Edit is not allowed.");
     }
 
     const loggedInUser = req.user;
@@ -28,9 +28,7 @@ profileRouter.patch("/profile/edit", auth, async (req, res) => {
 
     await loggedInUser.save();
 
-    res.send(
-      `${loggedInUser.firstName}, your profile has been updated successfully`
-    );
+    res.send(loggedInUser);
   } catch (err) {
     res.status(400).send("Error : " + err.message);
   }
