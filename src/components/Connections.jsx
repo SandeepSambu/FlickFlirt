@@ -44,14 +44,14 @@ const Connections = () => {
           return (
             <div
               key={_id}
-              className="flex bg-base-300 shadow-xl w-5/12 h-40 rounded-xl mb-5"
+              className="flex bg-base-300 shadow-xl w-5/12 h-44 rounded-xl mb-5"
             >
               <div className="mr-5">
                 <figure className="">
                   <img
                     src={photoURL}
                     alt="user-photo"
-                    className="h-40 rounded-l-xl"
+                    className="h-44 rounded-l-xl"
                   />
                 </figure>
               </div>
@@ -61,8 +61,8 @@ const Connections = () => {
                 </h1>
                 <h2>{age}</h2>
                 <h2>{gender}</h2>
+                {skills && <h2>{skills.join(", ")}</h2>}
                 {about && <h2>{about}</h2>}
-                {skills && <h2>{skills}</h2>}
               </div>
             </div>
           );

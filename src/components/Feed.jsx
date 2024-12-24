@@ -24,7 +24,7 @@ const Feed = () => {
     getFeed();
   }, []);
 
-  return <div>{feed && <Users user={feed[0]} />}</div>;
+  return <div className="">{feed && <Users user={feed[0]} />}</div>;
 };
 
 export default Feed;

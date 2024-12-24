@@ -7,8 +7,8 @@ import { addRequest, removeRequest } from "../utils/requestSlice";
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.request);
-  const [sent, setSent] = useState(false);
-  const [err, setErr] = useState(false);
+  const [accept, setAccept] = useState(false);
+  const [decline, setDecline] = useState(false);
   const fetchRequests = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/requests/received", {
@@ -34,10 +34,8 @@ const Requests = () => {
         }
       );
       dispatch(removeRequest(id));
-      setSent(true);
     } catch (err) {
       console.log(err);
-      setErr(true);
     }
   };
 
@@ -70,39 +68,48 @@ const Requests = () => {
             return (
               <div
                 key={_id}
-                className="flex bg-base-300 shadow-xl w-6/12 h-52 rounded-xl mb-5"
+                className="flex bg-base-300 shadow-xl h-48 rounded-xl mb-5 gap-4"
               >
-                <div className="w-4/12">
+                <div className="">
                   <figure className="">
                     <img
                       src={photoURL}
                       alt="user-photo"
-                      className="h-52 rounded-l-xl"
+                      className="h-48 rounded-l-xl"
                     />
                   </figure>
                 </div>
-                <div className="items-start my-5 w-9/12 flex flex-col justify-between">
+                <div className="items-start my-3 flex flex-col">
                   <div className="">
-                    <h1 className="font-bold text-2xl">
+                    <h2 className="font-bold text-2xl my-0.5">
                       {firstName + " " + lastName}
-                    </h1>
-                    <h2>{age}</h2>
-                    <h2>{gender}</h2>
+                    </h2>
+                    <p className="my-0.5">
+                      {age}, {gender}
+                    </p>
+                    {skills && <p className="my-0.5">{skills.join(", ")}</p>}
                     <div className="w-[500px]">
-                      {about && <h2 className="truncate">{about}</h2>}
+                      {about && <p className="truncate my-0.5">{about}</p>}
                     </div>
-                    {skills && <h2>{skills}</h2>}
                   </div>
                   <div className="mt-4 justify-between flex w-full">
                     <button
-                      className="bg-green-500 m-2 px-5 py-2 text-black rounded-lg"
-                      onClick={() => handleRequest("accepted", requestId)}
+                      className="bg-green-500 px-5 py-2 text-black rounded-lg"
+                      onClick={() => {
+                        handleRequest("accepted", requestId);
+                        setAccept(true);
+                        setTimeout(() => setAccept(false), 3000);
+                      }}
                     >
                       Accept
                     </button>
                     <button
-                      className="bg-red-500 m-2 px-5 py-2 text-black rounded-lg mr-10"
-                      onClick={() => handleRequest("declined", requestId)}
+                      className="bg-red-500 px-5 py-2 text-black rounded-lg mr-10"
+                      onClick={() => {
+                        handleRequest("declined", requestId);
+                        setDecline(true);
+                        setTimeout(() => setDecline(false), 3000);
+                      }}
                     >
                       Reject
                     </button>
@@ -113,12 +120,12 @@ const Requests = () => {
           })}
       </div>
       <div className="toast toast-top toast-center">
-        {sent && (
+        {accept && (
           <div className="alert alert-success">
             <span>Request accepted successfully.</span>
           </div>
         )}
-        {err && (
+        {decline && (
           <div className="alert alert-error">
             <span>Request declined successfully.</span>
           </div>

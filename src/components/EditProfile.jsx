@@ -11,7 +11,7 @@ const EditProfile = ({ user }) => {
   const [photoURL, setPhotoURL] = useState(user.photoURL);
   const [age, setAge] = useState(user.age || "");
   const [gender, setGender] = useState(user.gender || "");
-  const [skills, setSkills] = useState(user.skills || "");
+  const [skills, setSkills] = useState(user.skills.join(", ") || "");
   const [about, setAbout] = useState(user.about || "");
   const [edit, setEdit] = useState(false);
   const [toast, setToast] = useState(false);
@@ -27,6 +27,7 @@ const EditProfile = ({ user }) => {
           photoURL,
           age,
           gender,
+          skills,
           about,
         },
         { withCredentials: true }
@@ -39,6 +40,7 @@ const EditProfile = ({ user }) => {
         setToast(false);
       }, 3000);
     } catch (err) {
+      console.log(err);
       setErr(true);
       setTimeout(() => {
         setErr(false);
@@ -48,7 +50,7 @@ const EditProfile = ({ user }) => {
   return (
     <div className="flex justify-center gap-10">
       {edit && (
-        <div className="flex justify-center mt-16 mb-24">
+        <div className="flex justify-center mt-16 mb-10">
           <div className="card bg-base-300 w-96 shadow-xl">
             <div className="card-body">
               <h2 className="card-title font-bold text-2xl justify-center">
@@ -159,7 +161,7 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       )}
-      <div className="flex justify-center mt-16 mb-24">
+      <div className="flex justify-center mt-16 mb-10">
         <div className="card bg-base-300 w-96 shadow-xl">
           <figure className="h-60">
             <img src={photoURL} alt="user-photo" />
