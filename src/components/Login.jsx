@@ -11,8 +11,8 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("sandeep@gmail.com");
-  const [password, setPassword] = useState("Sandeep@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
