@@ -3,6 +3,7 @@ const profileRouter = express.Router();
 const bcrypt = require("bcrypt");
 const { auth } = require("../middleware/auth");
 const { editValidation } = require("../utils/validation");
+const User = require("../models/user");
 
 profileRouter.get("/profile/view", auth, (req, res) => {
   try {
@@ -16,6 +17,14 @@ profileRouter.get("/profile/view", auth, (req, res) => {
 
 profileRouter.patch("/profile/edit", auth, async (req, res) => {
   try {
+    console.log(req.body.skills);
+    if (req.body.skills) {
+      req.body.skills = req.body.skills
+        .split(", ")
+        .map((skill) => skill.trim())
+        .map((skill) => skill.toLowerCase());
+    }
+
     const isEditAllowed = editValidation(req);
 
     if (!isEditAllowed) {
