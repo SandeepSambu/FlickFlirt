@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
-  mongoose.connect(
-    "mongodb+srv://node:xLVR9MjcQtNnPIhR@flickflirt.4l6tq.mongodb.net/flickflirt"
-  );
+  mongoose.connect(process.env.MONGO_CONNECTION_STRING);
 };
 
 module.exports = connectDB;

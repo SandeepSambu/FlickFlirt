@@ -9,7 +9,7 @@ const auth = async (req, res, next) => {
       return res.status(401).send("Please login");
     }
 
-    const decodedMsg = jwt.verify(token, "Susuvasa@20");
+    const decodedMsg = jwt.verify(token, process.env.JWT_SCERET);
 
     const { id } = decodedMsg;
 

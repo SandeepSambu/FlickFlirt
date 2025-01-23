@@ -9,6 +9,8 @@ const cors = require("cors");
 
 const server = express();
 
+require("dotenv").config();
+
 server.use(
   cors({
     origin: "http://localhost:5173",
