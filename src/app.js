@@ -10,6 +10,8 @@ const cors = require("cors");
 const server = express();
 
 require("dotenv").config();
+const { createServer } = require("http");
+const connectSocket = require("./utils/socket");
 
 server.use(
   cors({
@@ -25,10 +27,14 @@ server.use("/", profileRouter);
 server.use("/", requestRouter);
 server.use("/", userRouter);
 
+const app = createServer(server);
+
+connectSocket(app);
+
 connectDB()
   .then(() => {
     console.log("Database connection established");
-    server.listen(7777, () => {
+    app.listen(7777, () => {
       console.log("Server started successfully");
     });
   })
